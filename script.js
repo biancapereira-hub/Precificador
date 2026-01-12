@@ -40,8 +40,18 @@ const categorias = [
 
 window.onload = () => {
     const select = document.getElementById("categoria");
+
+    // opção padrão
+    const defaultOpt = document.createElement("option");
+    defaultOpt.value = "";
+    defaultOpt.textContent = "Selecione uma categoria";
+    defaultOpt.disabled = true;
+    defaultOpt.selected = true;
+    select.appendChild(defaultOpt);
+
     categorias.forEach(cat => {
         const opt = document.createElement("option");
+        opt.value = cat;
         opt.textContent = cat;
         select.appendChild(opt);
     });
