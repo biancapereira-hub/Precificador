@@ -1,3 +1,5 @@
+console.log("JS carregou");
+
 const categorias = [
     "Comidas e bebidas",
     "Eletrodomésticos de linha branca",
