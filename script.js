@@ -56,9 +56,18 @@ function lerNumero(valor) {
     return isNaN(num) ? null : num;
 }
 function copiarResultado() {
-    const texto = document.getElementById("resultado").innerText;
-    navigator.clipboard.writeText(texto);
-    alert("Resultados copiados!");
+    const preco = document.getElementById("precoVendaCopiar");
+
+    if (!preco) {
+        alert("Calcule o preço antes de copiar.");
+        return;
+    }
+
+    navigator.clipboard.writeText(preco.innerText);
+    alert("Preço copiado!");
+
+    navigator.clipboard.writeText(preco.innerText);
+    alert("Preço de venda copiado!");
 }
 function calcularComissao(categoria, preco) {
     const comissoes = {
@@ -207,7 +216,7 @@ Frete: R$ ${envio.toFixed(2)}<br><br>
 
 Custo total: R$ ${custoTotal.toFixed(2)}<br>
 <strong>Preço de venda:</strong> 
-<span id="precoVendaCopiar">R$ ${precoVenda.toFixed(2)}</span><br>
+<span id="precoVendaCopiar">R$ {precoVenda.toFixed(2)}</span><br>
 
 Lucro: R$ ${lucro.toFixed(2)}<br>
 Margem real: ${margemPct.toFixed(2)}%
