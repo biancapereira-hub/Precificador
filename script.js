@@ -342,3 +342,9 @@ Margem real: ${percLucro.toFixed(2)}%
         <strong>Margem:</strong> ${margemPct.toFixed(2)}%
     `;
 }
+
+function copiarResultado() {
+    const texto = document.getElementById("resultado").innerText;
+    navigator.clipboard.writeText(texto);
+    alert("Resultados copiados!");
+}
