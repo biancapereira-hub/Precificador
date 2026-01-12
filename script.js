@@ -236,3 +236,4 @@ Custo total: R$ ${custoTotal.toFixed(2)}<br>
 Lucro: R$ ${lucro.toFixed(2)}<br>
 Margem real: ${margemPct.toFixed(2)}%
 `;
+}
