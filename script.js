@@ -151,17 +151,24 @@ function calcular() {
     const peso = lerNumero(document.getElementById("peso").value || "0");
     const categoria = document.getElementById("categoria").value;
 
-    if (custo === null) return;
+    if (custo === null || custo <= 0) {
+        alert("Informe um custo válido.");
+        return;
+    }
+
+    if (custo > 78.99 && (!peso || peso <= 0)) {
+        alert("Informe o peso do produto.");
+        return;
+    }
 
     let envio = 0;
 
     for (let [limite, valor] of TARIFAS_ENVIO.fixo) {
-    if (custo <= limite) {
-        envio = valor;
-        break;
+        if (custo <= limite) {
+            envio = valor;
+            break;
+        }
     }
-}
-
 
     if (custo > 78.99) {
         for (let faixa of TARIFAS_ENVIO.faixas) {
@@ -173,8 +180,9 @@ function calcular() {
                     }
                 }
                 if (peso > 10) {
-                    envio = faixa.tabela[faixa.tabela.length - 1][1] + Math.ceil(peso - 10) * faixa.adicional
-;
+                    envio =
+                        faixa.tabela[faixa.tabela.length - 1][1] +
+                        Math.ceil(peso - 10) * faixa.adicional;
                 }
                 break;
             }
@@ -189,18 +197,17 @@ function calcular() {
     const lucro = precoVenda - custoTotal;
     const margemPct = (lucro / precoVenda) * 100;
 
-    }
-
     document.getElementById("resultado").innerHTML = `
 📦 RESUMO DO CÁLCULO
 
 Custo do produto: R$ ${custo.toFixed(2)}
 Categoria: ${categoria}
-Comissão: R$ ${valorComissao.toFixed(2)}
-Frete: R$ ${frete.toFixed(2)}
+Comissão: R$ ${comissao.toFixed(2)}
+Frete: R$ ${envio.toFixed(2)}
 
 Custo total: R$ ${custoTotal.toFixed(2)}
 Preço de venda: R$ ${precoVenda.toFixed(2)}
 Lucro: R$ ${lucro.toFixed(2)}
-Margem real: ${percLucro.toFixed(2)}%
+Margem real: ${margemPct.toFixed(2)}%
+`;
 }
