@@ -64,9 +64,6 @@ function copiarResultado() {
     }
 
     navigator.clipboard.writeText(preco.innerText);
-    alert("Preço copiado!");
-
-    navigator.clipboard.writeText(preco.innerText);
     alert("Preço de venda copiado!");
 }
 function calcularComissao(categoria, preco) {
@@ -216,7 +213,7 @@ Frete: R$ ${envio.toFixed(2)}<br><br>
 
 Custo total: R$ ${custoTotal.toFixed(2)}<br>
 <strong>Preço de venda:</strong> 
-<span id="precoVendaCopiar">R$ {precoVenda.toFixed(2)}</span><br>
+<span id="precoVendaCopiar">${precoVenda.toFixed(2)}</span>
 
 Lucro: R$ ${lucro.toFixed(2)}<br>
 Margem real: ${margemPct.toFixed(2)}%
