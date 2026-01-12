@@ -212,8 +212,10 @@ Comissão: R$ ${comissao.toFixed(2)}<br>
 Frete: R$ ${envio.toFixed(2)}<br><br>
 
 Custo total: R$ ${custoTotal.toFixed(2)}<br>
-<strong>Preço de venda:</strong> 
+
+<strong>Preço de venda:</strong><br>
 <span id="precoVendaCopiar">${precoVenda.toFixed(2)}</span>
+<button onclick="copiarResultado()">Copiar</button><br><br>
 
 Lucro: R$ ${lucro.toFixed(2)}<br>
 Margem real: ${margemPct.toFixed(2)}%
