@@ -198,16 +198,15 @@ function calcular() {
     const margemPct = (lucro / precoVenda) * 100;
 
     document.getElementById("resultado").innerHTML = `
-📦 RESUMO DO CÁLCULO
+📦 <strong>RESUMO DO CÁLCULO</strong><br><br>
 
-Custo do produto: R$ ${custo.toFixed(2)}
-Categoria: ${categoria}
-Comissão: R$ ${comissao.toFixed(2)}
-Frete: R$ ${envio.toFixed(2)}
+<strong>Custo do produto:</strong> R$ ${custo.toFixed(2)}<br>
+<strong>Categoria:</strong> ${categoria}<br>
+<strong>Comissão:</strong> R$ ${comissao.toFixed(2)}<br>
+<strong>Frete:</strong> R$ ${envio.toFixed(2)}<br><br>
 
-Custo total: R$ ${custoTotal.toFixed(2)}
-Preço de venda: R$ ${precoVenda.toFixed(2)}
-Lucro: R$ ${lucro.toFixed(2)}
-Margem real: ${margemPct.toFixed(2)}%
+<strong>Custo total:</strong> R$ ${custoTotal.toFixed(2)}<br>
+<strong>Preço de venda:</strong> R$ ${precoVenda.toFixed(2)}<br>
+<strong>Lucro:</strong> R$ ${lucro.toFixed(2)}<br>
+<strong>Margem real:</strong> ${margemPct.toFixed(2)}%
 `;
-}
