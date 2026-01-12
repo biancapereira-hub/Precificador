@@ -180,6 +180,88 @@ function calcular() {
     const lucro = precoVenda - custoTotal;
     const margemPct = (lucro / precoVenda) * 100;
 
+    function calcularPreco() {
+    const custoInput = document.getElementById("custo").value;
+
+    // Validação de vírgula
+    if (custoInput.includes(",")) {
+        alert("Use ponto (.) ao invés de vírgula.");
+        return;
+    }
+
+    const custo = parseFloat(custoInput);
+    const categoria = document.getElementById("categoria").value;
+
+    if (isNaN(custo) || custo <= 0) {
+        alert("Digite um valor de custo válido.");
+        return;
+    }
+
+    // Comissão por categoria
+    const comissoes = {
+        "Comidas e bebidas": 0.10,
+        "Eletrônicos portáteis": 0.13,
+        "Beleza": 0.13,
+        "Livros": 0.15,
+        "Demais categorias": 0.15
+    };
+
+    const percentualComissao = comissoes[categoria] || 0.15;
+    let valorComissao = custo * percentualComissao;
+
+    // Comissão mínima
+    if (categoria === "Indústria e Ciência" && valorComissao < 2) {
+        valorComissao = 2;
+    }
+
+    // Frete simplificado (exemplo até 78,99)
+    let frete = 0;
+
+    if (custo <= 30) {
+        frete = 4.50;
+    } else if (custo <= 49.99) {
+        frete = 6.50;
+    } else if (custo <= 78.99) {
+        frete = 6.75;
+    } else {
+        frete = 11.95; // exemplo básico (pode expandir depois)
+    }
+
+    // Custo total
+    const custoTotal = custo + valorComissao + frete;
+
+    // Margem de 20%
+    const precoVenda = custoTotal / 0.8;
+
+    const lucro = precoVenda - custoTotal;
+    const porcentagemLucro = (lucro / precoVenda) * 100;
+
+    // Saída para o usuário (igual ao Python)
+    document.getElementById("resultado").innerHTML = `
+        <h2>Resumo do Cálculo</h2>
+
+        <p><strong>Custo do produto:</strong> R$ ${custo.toFixed(2)}</p>
+        <p><strong>Categoria:</strong> ${categoria}</p>
+
+        <p><strong>Comissão (${(percentualComissao * 100).toFixed(0)}%):</strong>
+        R$ ${valorComissao.toFixed(2)}</p>
+
+        <p><strong>Tarifa de envio:</strong> R$ ${frete.toFixed(2)}</p>
+
+        <hr>
+
+        <p><strong>Custo total:</strong> R$ ${custoTotal.toFixed(2)}</p>
+
+        <p><strong>Preço de venda (margem 20%):</strong>
+        R$ ${precoVenda.toFixed(2)}</p>
+
+        <p><strong>Lucro:</strong> R$ ${lucro.toFixed(2)}</p>
+
+        <p><strong>Porcentagem de lucro:</strong>
+        ${porcentagemLucro.toFixed(2)}%</p>
+    `;
+}
+
     document.getElementById("resultado").innerHTML = `
         <strong>Preço de venda:</strong> R$ ${precoVenda.toFixed(2)}<br>
         <strong>Lucro:</strong> R$ ${lucro.toFixed(2)}<br>
