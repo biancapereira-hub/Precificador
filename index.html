@@ -10,16 +10,19 @@
 <div class="container">
     <h1>Precificador de Produtos Amazon</h1>
 
-    <label>Custo do produto (R$)</label>
-    <input type="text" id="custo" placeholder="Ex: 59.90">
+    <label for="custo">Custo do produto (R$)</label>
+    <input type="number" id="custo" step="0.01" placeholder="Ex: 59.90">
 
-    <label>Categoria</label>
+    <label for="categoria">Categoria</label>
     <select id="categoria"></select>
 
-    <label id="labelPeso">Peso do produto (kg)</label>
-    <input type="text" id="peso" placeholder="Ex: 0.45">
+    <label for="peso" id="labelPeso">
+        Peso do produto (kg – obrigatório acima de R$ 78,99)
+    </label>
+    <input type="number" id="peso" step="0.01" placeholder="Ex: 0.45">
 
     <button onclick="calcular()">Calcular</button>
+    <button onclick="copiarResultado()">Copiar resultados</button>
 
     <div class="resultado" id="resultado"></div>
 </div>
