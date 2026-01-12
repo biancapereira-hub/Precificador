@@ -200,6 +200,10 @@ function calcular() {
                         faixa.tabela[faixa.tabela.length - 1][1] +
                         Math.ceil(peso - 10) * faixa.adicional;
                 }
+                if (!categoria) {
+    alert("Selecione uma categoria.");
+    return;
+}
                 break;
             }
         }
