@@ -334,7 +334,4 @@ Custo total: R$ ${custoTotal.toFixed(2)}
 Preço de venda: R$ ${precoVenda.toFixed(2)}
 Lucro: R$ ${lucro.toFixed(2)}
 Margem real: ${percLucro.toFixed(2)}%
-`;Resultado").innerText;
-    navigator.clipboard.writeText(texto);
-    alert("Resultados copiados!");
 }
