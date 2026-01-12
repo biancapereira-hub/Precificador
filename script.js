@@ -152,8 +152,12 @@ function calcular() {
     let envio = 0;
 
     for (let [limite, valor] of TARIFAS_ENVIO.fixo) {
-        if (custo <= limite) envio = valor;
+    if (custo <= limite) {
+        envio = valor;
+        break;
     }
+}
+
 
     if (custo > 78.99) {
         for (let faixa of TARIFAS_ENVIO.faixas) {
@@ -165,7 +169,8 @@ function calcular() {
                     }
                 }
                 if (peso > 10) {
-                    envio = faixa.tabela[faixa.tabela.length - 1][1] + ((peso - 10) * faixa.adicional);
+                    envio = faixa.tabela[faixa.tabela.length - 1][1] + Math.ceil(peso - 10) * faixa.adicional
+;
                 }
                 break;
             }
@@ -222,6 +227,12 @@ function calcular() {
     /* ===== FRETE ===== */
     let frete = 0;
     let adicionalKg = custo >= 200 ? 4.00 : 3.05;
+
+    function copiarResultado() {
+    const texto = document.getElementById("resultado").innerText;
+    navigator.clipboard.writeText(texto);
+    alert("Resultados copiados!");
+}
 
     function faixaPeso(peso, tabela) {
         for (let faixa of tabela) {
@@ -333,18 +344,7 @@ Custo total: R$ ${custoTotal.toFixed(2)}
 Preço de venda: R$ ${precoVenda.toFixed(2)}
 Lucro: R$ ${lucro.toFixed(2)}
 Margem real: ${percLucro.toFixed(2)}%
-`;
-}
-
-    document.getElementById("resultado").innerHTML = `
-        <strong>Preço de venda:</strong> R$ ${precoVenda.toFixed(2)}<br>
-        <strong>Lucro:</strong> R$ ${lucro.toFixed(2)}<br>
-        <strong>Margem:</strong> ${margemPct.toFixed(2)}%
-    `;
-}
-
-function copiarResultado() {
-    const texto = document.getElementById("resultado").innerText;
+`;Resultado").innerText;
     navigator.clipboard.writeText(texto);
     alert("Resultados copiados!");
 }
