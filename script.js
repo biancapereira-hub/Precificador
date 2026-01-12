@@ -196,17 +196,19 @@ function calcular() {
     const precoVenda = custoTotal / (1 - margem);
     const lucro = precoVenda - custoTotal;
     const margemPct = (lucro / precoVenda) * 100;
-
-    document.getElementById("resultado").innerHTML = `
+    
+document.getElementById("resultado").innerHTML = `
 📦 <strong>RESUMO DO CÁLCULO</strong><br><br>
 
-<strong>Custo do produto:</strong> R$ ${custo.toFixed(2)}<br>
-<strong>Categoria:</strong> ${categoria}<br>
-<strong>Comissão:</strong> R$ ${comissao.toFixed(2)}<br>
-<strong>Frete:</strong> R$ ${envio.toFixed(2)}<br><br>
+Custo do produto: R$ ${custo.toFixed(2)}<br>
+Categoria: ${categoria}<br>
+Comissão: R$ ${comissao.toFixed(2)}<br>
+Frete: R$ ${envio.toFixed(2)}<br><br>
 
-<strong>Custo total:</strong> R$ ${custoTotal.toFixed(2)}<br>
-<strong>Preço de venda:</strong> R$ ${precoVenda.toFixed(2)}<br>
-<strong>Lucro:</strong> R$ ${lucro.toFixed(2)}<br>
-<strong>Margem real:</strong> ${margemPct.toFixed(2)}%
+Custo total: R$ ${custoTotal.toFixed(2)}<br>
+<strong>Preço de venda:</strong> 
+<span id="precoVendaCopiar">R$ ${precoVenda.toFixed(2)}</span><br>
+
+Lucro: R$ ${lucro.toFixed(2)}<br>
+Margem real: ${margemPct.toFixed(2)}%
 `;
