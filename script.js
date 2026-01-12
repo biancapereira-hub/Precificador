@@ -55,7 +55,11 @@ function lerNumero(valor) {
     const num = parseFloat(valor);
     return isNaN(num) ? null : num;
 }
-
+function copiarResultado() {
+    const texto = document.getElementById("resultado").innerText;
+    navigator.clipboard.writeText(texto);
+    alert("Resultados copiados!");
+}
 function calcularComissao(categoria, preco) {
     const comissoes = {
         "Comidas e bebidas": 0.10,
@@ -219,12 +223,6 @@ function calcular() {
     /* ===== FRETE ===== */
     let frete = 0;
     let adicionalKg = custo >= 200 ? 4.00 : 3.05;
-
-    function copiarResultado() {
-    const texto = document.getElementById("resultado").innerText;
-    navigator.clipboard.writeText(texto);
-    alert("Resultados copiados!");
-}
 
     function faixaPeso(peso, tabela) {
         for (let faixa of tabela) {
