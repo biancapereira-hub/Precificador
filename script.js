@@ -180,86 +180,160 @@ function calcular() {
     const lucro = precoVenda - custoTotal;
     const margemPct = (lucro / precoVenda) * 100;
 
-    function calcularPreco() {
+   function calcularPreco() {
     const custoInput = document.getElementById("custo").value;
+    const pesoInput = document.getElementById("peso").value;
+    const categoria = document.getElementById("categoria").value;
 
-    // Validação de vírgula
-    if (custoInput.includes(",")) {
+    if (custoInput.includes(",") || pesoInput.includes(",")) {
         alert("Use ponto (.) ao invés de vírgula.");
         return;
     }
 
     const custo = parseFloat(custoInput);
-    const categoria = document.getElementById("categoria").value;
+    const peso = parseFloat(pesoInput);
 
     if (isNaN(custo) || custo <= 0) {
-        alert("Digite um valor de custo válido.");
+        alert("Custo inválido.");
         return;
     }
 
-    // Comissão por categoria
+    if (custo > 78.99 && (isNaN(peso) || peso <= 0)) {
+        alert("Informe o peso do produto.");
+        return;
+    }
+
+    /* ===== COMISSÕES ===== */
     const comissoes = {
         "Comidas e bebidas": 0.10,
         "Eletrônicos portáteis": 0.13,
-        "Beleza": 0.13,
         "Livros": 0.15,
+        "Indústria e Ciência": 0.12,
         "Demais categorias": 0.15
     };
 
     const percentualComissao = comissoes[categoria] || 0.15;
     let valorComissao = custo * percentualComissao;
 
-    // Comissão mínima
     if (categoria === "Indústria e Ciência" && valorComissao < 2) {
         valorComissao = 2;
     }
 
-    // Frete simplificado (exemplo até 78,99)
+    /* ===== FRETE ===== */
     let frete = 0;
+    let adicionalKg = custo >= 200 ? 4.00 : 3.05;
 
-    if (custo <= 30) {
-        frete = 4.50;
-    } else if (custo <= 49.99) {
-        frete = 6.50;
-    } else if (custo <= 78.99) {
-        frete = 6.75;
-    } else {
-        frete = 11.95; // exemplo básico (pode expandir depois)
+    function faixaPeso(peso, tabela) {
+        for (let faixa of tabela) {
+            if (peso <= faixa.max) return faixa.valor;
+        }
+        const excedente = Math.ceil(peso - 10);
+        return tabela[tabela.length - 1].valor + (excedente * adicionalKg);
     }
 
-    // Custo total
+    if (custo <= 30) frete = 4.50;
+    else if (custo <= 49.99) frete = 6.50;
+    else if (custo <= 78.99) frete = 6.75;
+    else if (custo <= 99.99) {
+        frete = faixaPeso(peso, [
+            { max: 0.25, valor: 11.95 },
+            { max: 0.5, valor: 12.85 },
+            { max: 1, valor: 13.45 },
+            { max: 2, valor: 14.00 },
+            { max: 3, valor: 14.95 },
+            { max: 4, valor: 16.15 },
+            { max: 5, valor: 17.00 },
+            { max: 6, valor: 25.00 },
+            { max: 7, valor: 26.00 },
+            { max: 8, valor: 27.00 },
+            { max: 9, valor: 28.00 },
+            { max: 10, valor: 39.50 }
+        ]);
+    }
+    else if (custo <= 119.99) {
+        frete = faixaPeso(peso, [
+            { max: 0.25, valor: 15.00 },
+            { max: 0.5, valor: 15.00 },
+            { max: 1, valor: 15.70 },
+            { max: 2, valor: 16.35 },
+            { max: 3, valor: 17.45 },
+            { max: 4, valor: 18.85 },
+            { max: 5, valor: 19.90 },
+            { max: 6, valor: 30.00 },
+            { max: 7, valor: 31.00 },
+            { max: 8, valor: 32.00 },
+            { max: 9, valor: 33.00 },
+            { max: 10, valor: 46.00 }
+        ]);
+    }
+    else if (custo <= 149.99) {
+        frete = faixaPeso(peso, [
+            { max: 0.25, valor: 15.95 },
+            { max: 0.5, valor: 17.15 },
+            { max: 1, valor: 17.95 },
+            { max: 2, valor: 18.75 },
+            { max: 3, valor: 19.95 },
+            { max: 4, valor: 21.55 },
+            { max: 5, valor: 22.75 },
+            { max: 6, valor: 34.00 },
+            { max: 7, valor: 35.00 },
+            { max: 8, valor: 36.00 },
+            { max: 9, valor: 37.00 },
+            { max: 10, valor: 52.75 }
+        ]);
+    }
+    else if (custo <= 199.99) {
+        frete = faixaPeso(peso, [
+            { max: 0.25, valor: 17.95 },
+            { max: 0.5, valor: 19.30 },
+            { max: 1, valor: 20.20 },
+            { max: 2, valor: 21.10 },
+            { max: 3, valor: 22.40 },
+            { max: 4, valor: 24.20 },
+            { max: 5, valor: 25.60 },
+            { max: 6, valor: 38.00 },
+            { max: 7, valor: 39.00 },
+            { max: 8, valor: 40.00 },
+            { max: 9, valor: 41.00 },
+            { max: 10, valor: 59.00 }
+        ]);
+    }
+    else {
+        frete = faixaPeso(peso, [
+            { max: 0.25, valor: 20.45 },
+            { max: 0.5, valor: 20.95 },
+            { max: 1, valor: 21.95 },
+            { max: 2, valor: 23.45 },
+            { max: 3, valor: 24.45 },
+            { max: 4, valor: 25.95 },
+            { max: 5, valor: 27.95 },
+            { max: 6, valor: 36.95 },
+            { max: 7, valor: 39.45 },
+            { max: 8, valor: 40.45 },
+            { max: 9, valor: 46.95 },
+            { max: 10, valor: 65.95 }
+        ]);
+    }
+
+    /* ===== CÁLCULOS FINAIS ===== */
     const custoTotal = custo + valorComissao + frete;
-
-    // Margem de 20%
     const precoVenda = custoTotal / 0.8;
-
     const lucro = precoVenda - custoTotal;
-    const porcentagemLucro = (lucro / precoVenda) * 100;
+    const percLucro = (lucro / precoVenda) * 100;
 
-    // Saída para o usuário (igual ao Python)
     document.getElementById("resultado").innerHTML = `
-        <h2>Resumo do Cálculo</h2>
+📦 RESUMO DO CÁLCULO
 
-        <p><strong>Custo do produto:</strong> R$ ${custo.toFixed(2)}</p>
-        <p><strong>Categoria:</strong> ${categoria}</p>
+Custo do produto: R$ ${custo.toFixed(2)}
+Categoria: ${categoria}
+Comissão: R$ ${valorComissao.toFixed(2)}
+Frete: R$ ${frete.toFixed(2)}
 
-        <p><strong>Comissão (${(percentualComissao * 100).toFixed(0)}%):</strong>
-        R$ ${valorComissao.toFixed(2)}</p>
-
-        <p><strong>Tarifa de envio:</strong> R$ ${frete.toFixed(2)}</p>
-
-        <hr>
-
-        <p><strong>Custo total:</strong> R$ ${custoTotal.toFixed(2)}</p>
-
-        <p><strong>Preço de venda (margem 20%):</strong>
-        R$ ${precoVenda.toFixed(2)}</p>
-
-        <p><strong>Lucro:</strong> R$ ${lucro.toFixed(2)}</p>
-
-        <p><strong>Porcentagem de lucro:</strong>
-        ${porcentagemLucro.toFixed(2)}%</p>
-    `;
+Custo total: R$ ${custoTotal.toFixed(2)}
+Preço de venda: R$ ${precoVenda.toFixed(2)}
+Lucro: R$ ${lucro.toFixed(2)}
+Margem real: ${percLucro.toFixed(2)}%
+`;
 }
 
     document.getElementById("resultado").innerHTML = `
