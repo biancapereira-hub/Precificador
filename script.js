@@ -185,14 +185,6 @@ function calcular() {
     const lucro = precoVenda - custoTotal;
     const margemPct = (lucro / precoVenda) * 100;
 
-   function calcularPreco() {
-    const custoInput = document.getElementById("custo").value;
-    const pesoInput = document.getElementById("peso").value;
-    const categoria = document.getElementById("categoria").value;
-
-    if (custoInput.includes(",") || pesoInput.includes(",")) {
-        alert("Use ponto (.) ao invés de vírgula.");
-        return;
     }
 
     const custo = parseFloat(custoInput);
