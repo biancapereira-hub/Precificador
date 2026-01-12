@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Precificador de Produtos Amazon</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Precificador de Produtos Amazon</h1>
+
+    <label>Custo do produto (R$)</label>
+    <input type="text" id="custo" placeholder="Ex: 59.90">
+
+    <label>Categoria</label>
+    <select id="categoria"></select>
+
+    <label id="labelPeso">Peso do produto (kg)</label>
+    <input type="text" id="peso" placeholder="Ex: 0.45">
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div class="resultado" id="resultado"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
